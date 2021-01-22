@@ -1,7 +1,10 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import connectDB from './config/db.js';
-import users from './routes/api/users.js';
 
+import userRoutes from './routes/userRoutes.js';
+
+dotenv.config();
 const app = express();
 
 //connect database
@@ -13,7 +16,7 @@ app.use(express.json({ extended: false }));
 app.get('/', (req, res) => res.send('API Running'));
 
 //define routes
-app.use('/api/users', users);
+app.use('/api/users', userRoutes);
 // app.use('/api/auth', auth);
 // app.use('/api/profile', profile);
 // app.use('/api/posts', posts);
