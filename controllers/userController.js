@@ -1,5 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import validator from 'validator';
+import User from '../models/User.js';
+import generateToken from '../utils/generateToken.js';
 
 //@desc Auth user and get token
 //@route POST /api/users/login
@@ -7,8 +9,17 @@ import validator from 'validator';
 export const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  res.json({
-    email,
-    password,
-  });
+  const user = await User.findOne({ email: email });
+
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(401);
+    throw new Error('Invaild email or password');
+  }
 });
