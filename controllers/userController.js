@@ -23,3 +23,43 @@ export const authUser = asyncHandler(async (req, res) => {
     throw new Error('Invaild email or password');
   }
 });
+
+//@desc add new user
+//route POST /api/users
+//access public
+
+export const addUser = asyncHandler(async (req, res) => {
+  const { name, email, password } = req.body;
+  const userExists = await User.findOne({ email: email });
+  if (userExists) {
+    res.status(404);
+    throw new Error('User already exists');
+  }
+  if (!validator.isEmail(email)) {
+    res.status(403);
+    throw new Error('Need to be an email');
+  }
+  if (!validator.isStrongPassword(password)) {
+    res.status(403);
+    throw new Error(
+      'The password is not strong: min-length 8, 1 uppercase, 1 lowercase, 1 symbol, 1 number'
+    );
+  }
+  const user = await User.create({
+    name,
+    email,
+    password,
+  });
+
+  if (user) {
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(400);
+    throw new Error('Invaild user data');
+  }
+});
