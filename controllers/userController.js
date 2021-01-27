@@ -86,3 +86,17 @@ export const getUsers = asyncHandler(async (req, res) => {
   const users = await User.find({});
   res.json(users);
 });
+
+//@desc GET user by id
+//@route GET /api/users/:id
+//@access private
+
+export const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select('-password'); //remove password
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
