@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import validator from 'validator';
+import gravatar from 'gravatar';
 import User from '../models/User.js';
 import generateToken from '../utils/generateToken.js';
 
