@@ -45,9 +45,16 @@ export const addUser = asyncHandler(async (req, res) => {
       'The password is not strong: min-length 8, 1 uppercase, 1 lowercase, 1 symbol, 1 number'
     );
   }
+  const avatar = gravatar.url(email, {
+    s: '200',
+    r: 'pg',
+    d: 'mm',
+  });
+
   const user = await User.create({
     name,
     email,
+    avatar,
     password,
   });
 
