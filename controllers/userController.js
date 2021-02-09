@@ -63,6 +63,7 @@ export const addUser = asyncHandler(async (req, res) => {
     res.status(201).json({
       _id: user._id,
       name: user.name,
+      avatar: user.avatar,
       email: user.email,
       token: generateToken(user._id),
     });
