@@ -1,9 +1,8 @@
 import express from 'express';
+import { protect } from '../middleware/authMiddleware.js';
+import { getUserProfileById } from '../controllers/profileController.js';
 const router = express.Router();
 
-//@route GET api/profile
-//@desc test route
-//@acess Public
-router.get('/', (req, res) => res.send('Profile route'));
+router.geroutet('/').get(protect, getUserProfileById);
 
 export default router;
