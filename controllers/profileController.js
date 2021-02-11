@@ -190,3 +190,42 @@ export const updateExperience = asyncHandler(async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+//@route DELETE api/profile/experience
+//@desc delete profile experience
+//@acess private
+
+export const deleteExperience = asyncHandler(async (req, res) => {
+  const { title, company, from, to, current, description, location } = req.body;
+  //check
+  if (validator.isEmpty(title)) {
+    res.status(403);
+    throw new Error('Title is required');
+  }
+  if (validator.isEmpty(company)) {
+    res.status(403);
+    throw new Error('Company is required');
+  }
+  if (validator.isEmpty(from)) {
+    res.status(403);
+    throw new Error('From date is required');
+  }
+
+  const newExp = {
+    title,
+    company,
+    location,
+    from,
+    to,
+    current,
+    description,
+  };
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+    profile.experience.unshift(newExp);
+    await profile.save();
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});

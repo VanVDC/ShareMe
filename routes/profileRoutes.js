@@ -7,6 +7,7 @@ import {
   getUserById,
   deleteProfile,
   updateExperience,
+  deleteExperience,
 } from '../controllers/profileController.js';
 const router = express.Router();
 
@@ -17,6 +18,9 @@ router
   .delete(protect, deleteProfile);
 router.route('/me').get(protect, getUserProfileById);
 router.route('/user/:user_id').get(getUserById);
-router.route('/experience').put(protect, updateExperience);
+router
+  .route('/experience')
+  .put(protect, updateExperience)
+  .delete(protect, deleteExperience);
 
 export default router;
