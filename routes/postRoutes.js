@@ -8,5 +8,5 @@ import {
 const router = express.Router();
 
 router.route('/').post(protect, createPost).get(protect, getAllPosts);
-router.route('/:id').post(protect, getPostById);
+router.route('/:id').get(protect, getPostById);
 export default router;
