@@ -13,7 +13,6 @@ export const getUserProfileById = asyncHandler(async (req, res) => {
       user: req.user.id,
     }).populate('user', ['name', 'avatar']);
 
-    console.log(profile);
     if (!profile) {
       res.status(400).json({ meg: 'There is no profile for this user' });
     }
@@ -96,5 +95,19 @@ export const createNewProfile = asyncHandler(async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send('server error');
+  }
+});
+
+//@route GET api/profile
+//@desc get all profiles
+//@acess public
+
+export const getAllProfiles = asyncHandler(async (req, res) => {
+  try {
+    const profiles = await Profile.find().populate('user', ['name', 'avatar']);
+    res.json(profiles);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
   }
 });
