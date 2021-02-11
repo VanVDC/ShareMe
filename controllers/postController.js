@@ -129,3 +129,33 @@ export const unlikeAPost = asyncHandler(async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+//@route POST /api/posts/comment/:id
+//@desc Comment on a post
+//@access Private
+
+export const commentOnAPost = asyncHandler(async (req, res) => {
+  const { text } = req.body;
+  if (validator.isEmpty(text)) {
+    res.status(400);
+    throw new Error('Text is required');
+  }
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    const post = await Post.findById(req.params.id);
+    //check on the user already liked the post
+
+    const newComment = {
+      text: req.body.text,
+      name: user.name,
+      avatar: user.avatar,
+      user: req.user.id,
+    };
+
+    post.comments.unshift(newComment);
+    await post.save();
+    res.json(post.comments);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
