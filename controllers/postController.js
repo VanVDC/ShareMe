@@ -80,3 +80,26 @@ export const deletePost = asyncHandler(async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+//@route PUT /api/posts/like:id
+//@desc Like a post by id
+//@access Private
+
+export const likeAPost = asyncHandler(async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    //check on the user already liked the post
+    if (
+      post.likes.filter((like) => like.user.toString() === req.user.id).length >
+      0
+    ) {
+      return res.status(404).json({ msg: 'Already liked' });
+    }
+
+    post.likes.unshift({ user: req.user.id });
+    await post.save();
+    res.json(post.likes);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
