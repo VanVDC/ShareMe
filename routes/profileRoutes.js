@@ -5,11 +5,18 @@ import {
   createNewProfile,
   getAllProfiles,
   getUserById,
+  deleteProfile,
+  updateExperience,
 } from '../controllers/profileController.js';
 const router = express.Router();
 
-router.route('/').post(protect, createNewProfile).get(getAllProfiles);
+router
+  .route('/')
+  .post(protect, createNewProfile)
+  .get(getAllProfiles)
+  .delete(protect, deleteProfile);
 router.route('/me').get(protect, getUserProfileById);
 router.route('/user/:user_id').get(getUserById);
+router.route('/experience').put(protect, updateExperience);
 
 export default router;
