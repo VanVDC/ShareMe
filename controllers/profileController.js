@@ -6,19 +6,25 @@ import User from '../models/User.js';
 
 //@route GET api/profile/me
 //@desc Get current users profile
-//@acess Public
+//@acess private
 export const getUserProfileById = asyncHandler(async (req, res) => {
-  const profile = await Profile.findOne({ user: req.user.id }).populate(
-    'user',
-    ['name', 'avatar']
-  );
-  if (profile) {
+  try {
+    const profile = await Profile.findOne({
+      user: req.user.id,
+    }).populate('user', ['name', 'avatar']);
+
+    console.log(profile);
+    if (!profile) {
+      res.status(400).json({ meg: 'There is no profile for this user' });
+    }
+
     res.json(profile);
-  } else {
-    res.status(400);
-    throw new Error('profile not found');
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
   }
 });
+
 //@route POST api/profile
 //@desc create or update user profile
 //@acess private
@@ -50,7 +56,7 @@ export const createNewProfile = asyncHandler(async (req, res) => {
 
   //build profile object
   const profileFields = {};
-  profileFields.use = req.user.id;
+  profileFields.user = req.user.id;
   if (company) profileFields.comapny = company;
   if (website) profileFields.website = website;
   if (location) profileFields.location = location;
