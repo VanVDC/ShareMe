@@ -19,6 +19,6 @@ router
 router.route('/me').get(protect, getUserProfileById);
 router.route('/user/:user_id').get(getUserById);
 router.route('/experience').put(protect, updateExperience);
-router.route('/experience/:exp_id').delte(protect, deleteExperience);
+router.route('/experience/:exp_id').delete(protect, deleteExperience);
 
 export default router;
