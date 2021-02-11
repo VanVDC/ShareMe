@@ -1,9 +1,8 @@
 import express from 'express';
+import { protect } from '../middleware/authMiddleware.js';
+import { createPost } from '../controllers/postController.js';
 const router = express.Router();
 
-//@route GET api/posts
-//@desc test route
-//@acess Public
-router.get('/', (req, res) => res.send('Posts route'));
+router.route('/').post(protect, createPost);
 
 export default router;
