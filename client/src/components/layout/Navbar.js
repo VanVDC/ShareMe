@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <nav className='navbar bg-dark'>
       <h1>
-        <Link href='/'>
+        <Link to='/'>
           <i className='fas fa-code'></i> ShareMe
         </Link>
       </h1>
@@ -14,10 +14,10 @@ const Navbar = () => {
           <a href='profiles.html'>Developers</a>
         </li>
         <li>
-          <Link href='/register'>Register</Link>
+          <Link to='/register'>Register</Link>
         </li>
         <li>
-          <Link href='/login'>Login</Link>
+          <Link to='/login'>Login</Link>
         </li>
       </ul>
     </nav>
