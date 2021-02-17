@@ -36,16 +36,16 @@ export const addUser = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error('User already exists');
   }
-  if (!validator.isEmail(email)) {
-    res.status(403);
-    throw new Error('Need to be an email');
-  }
-  if (!validator.isStrongPassword(password)) {
-    res.status(403);
-    throw new Error(
-      'The password is not strong: min-length 8, 1 uppercase, 1 lowercase, 1 symbol, 1 number'
-    );
-  }
+  // if (!validator.isEmail(email)) {
+  //   res.status(403);
+  //   throw new Error('Need to be an email');
+  // }
+  // if (!validator.isStrongPassword(password)) {
+  //   res.status(403);
+  //   throw new Error(
+  //     'The password is not strong: min-length 8, 1 uppercase, 1 lowercase, 1 symbol, 1 number'
+  //   );
+  // }
   const avatar = gravatar.url(email, {
     s: '200',
     r: 'pg',
@@ -73,7 +73,7 @@ export const addUser = asyncHandler(async (req, res) => {
   }
 });
 
-//@desc add new user
+//@desc delete new user
 //route Delete /api/users
 //access Private/ Admin
 

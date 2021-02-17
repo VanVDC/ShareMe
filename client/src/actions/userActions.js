@@ -29,8 +29,8 @@ export const login = (email, password) => async (dispatch) => {
       type: USER_LOGIN_FAIL,
       payload:
         err.response && err.response.data.message
-          ? error.response.data.message
-          : error.message,
+          ? err.response.data.message
+          : err.message,
     });
   }
 };
@@ -57,9 +57,9 @@ export const addUser = ({ name, email, password }) => async (dispatch) => {
     dispatch({
       type: USER_LOGIN_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message,
     });
   }
 };

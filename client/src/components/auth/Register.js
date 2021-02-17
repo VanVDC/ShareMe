@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 // import { setAlert } from '../../actions/alert';
@@ -18,6 +18,8 @@ const Register = ({ history }) => {
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const userAdd = useSelector((state) => state.userAdd);
 
   const { loading, error, userInfo } = userAdd;
 
