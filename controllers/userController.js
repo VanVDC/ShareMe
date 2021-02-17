@@ -32,20 +32,22 @@ export const authUser = asyncHandler(async (req, res) => {
 export const addUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   const userExists = await User.findOne({ email: email });
+
+  console.log('body ', email);
   if (userExists) {
     res.status(404);
     throw new Error('User already exists');
   }
-  // if (!validator.isEmail(email)) {
-  //   res.status(403);
-  //   throw new Error('Need to be an email');
-  // }
-  // if (!validator.isStrongPassword(password)) {
-  //   res.status(403);
-  //   throw new Error(
-  //     'The password is not strong: min-length 8, 1 uppercase, 1 lowercase, 1 symbol, 1 number'
-  //   );
-  // }
+  if (!validator.isEmail(email)) {
+    res.status(403);
+    throw new Error('Need to be an email');
+  }
+  if (!validator.isStrongPassword(password)) {
+    res.status(403);
+    throw new Error(
+      'The password is not strong: min-length 8, 1 uppercase, 1 lowercase, 1 symbol, 1 number'
+    );
+  }
   const avatar = gravatar.url(email, {
     s: '200',
     r: 'pg',
