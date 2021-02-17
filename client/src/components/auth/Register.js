@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setAlert } from '../../actions/alert';
-import { register } from '../../actions/userActions';
+// import { setAlert } from '../../actions/alert';
+import { addUser } from '../../actions/userActions';
 import PropTypes from 'prop-types';
 
-const Register = (props) => {
+const Register = ({ history }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,19 +14,26 @@ const Register = (props) => {
   });
 
   const { name, email, password, password2 } = formData;
+
+  const dispatch = useDispatch();
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const { loading, error, userInfo } = userAdd;
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push('/');
+    }
+  }, [history, userInfo]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      props.setAlert('Password does not match', 'danger');
+      console.log('Password does not match');
     } else {
-      props.register({
-        name,
-        email,
-        password,
-      });
+      dispatch(addUser(name, email, password));
     }
   };
   return (
