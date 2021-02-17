@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 // import { setAlert } from '../../actions/alert';
 import { addUser } from '../../actions/userActions';
-import PropTypes from 'prop-types';
 
 const Register = ({ history }) => {
   const [formData, setFormData] = useState({
@@ -94,8 +93,5 @@ const Register = ({ history }) => {
     </Fragment>
   );
 };
-Register.propTypes = {
-  setAlert: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
-};
-export default connect(null, { setAlert, register })(Register);
+
+export default Register;
