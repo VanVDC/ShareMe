@@ -6,6 +6,7 @@ import {
   USER_LOGIN_FAIL,
   USER_ADD_REQUEST,
   USER_ADD_SUCCESS,
+  USER_LOGOUT,
 } from '../constants/userConstants';
 
 export const login = (email, password) => async (dispatch) => {
@@ -62,4 +63,10 @@ export const addUser = (name, email, password) => async (dispatch) => {
           : err.message,
     });
   }
+};
+
+export const logout = () => (dispatch) => {
+  localStorage.removeItem('userInfo');
+  dispatch({ type: USER_LOGOUT });
+  document.location.href = '/login';
 };
