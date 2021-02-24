@@ -1,7 +1,15 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logout } from '../../actions/userActions';
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
   return (
     <nav className='navbar bg-dark'>
       <h1>
@@ -16,9 +24,15 @@ const Navbar = () => {
         <li>
           <Link to='/register'>Register</Link>
         </li>
-        <li>
-          <Link to='/login'>Login</Link>
-        </li>
+        {userInfo ? (
+          <li>
+            <Link onClick={logoutHandler}>Logout</Link>
+          </li>
+        ) : (
+          <li>
+            <Link to='/login'>Login</Link>
+          </li>
+        )}
       </ul>
     </nav>
   );
