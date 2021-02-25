@@ -18,8 +18,7 @@ const Login = ({ location, history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      // history.push('/');
-      console.log('Alrady login');
+      history.push('/');
     }
   }, [history, userInfo]);
 
