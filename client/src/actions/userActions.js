@@ -9,6 +9,8 @@ import {
   USER_LOGOUT,
 } from '../constants/userConstants';
 
+import { CLEAR_PROFILE } from '../constants/profileConstants';
+
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
@@ -68,5 +70,6 @@ export const addUser = (name, email, password) => async (dispatch) => {
 export const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo');
   dispatch({ type: USER_LOGOUT });
+  dispatch({ type: CLEAR_PROFILE });
   document.location.href = '/login';
 };

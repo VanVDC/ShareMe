@@ -6,10 +6,10 @@ import { GET_PROFILE, PROFILE_ERROR } from '../constants/profileConstants';
 
 export const getCurrentProfile = () => async (dispatch) => {
   try {
-    const { data } = await axios.get('/api/profile/me');
+    const res = await axios.get('/api/profile/me');
     dispatch({
       type: GET_PROFILE,
-      payload: data,
+      payload: res,
     });
   } catch (err) {
     dispatch({

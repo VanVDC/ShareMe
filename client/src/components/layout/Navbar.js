@@ -17,24 +17,41 @@ const Navbar = () => {
           <i className='fas fa-code'></i> ShareMe
         </Link>
       </h1>
-      <ul>
-        <li>
-          <a href='profiles.html'>Developers</a>
-        </li>
-        <li>
-          <Link to='/register'>Register</Link>
-        </li>
-        {userInfo ? (
+
+      {userInfo ? (
+        <ul>
+          <li>
+            <a href='profiles.html'>Developers</a>
+          </li>
+          <li>
+            <Link to='/dashboard'>
+              {' '}
+              <i className='fas fa-user' />
+              <span className='hide-sm'>Dashboard</span>
+            </Link>
+          </li>
+
           <li>
             <i className='fas fa-sign-out-alt'></i>
-            <Link onClick={logoutHandler}>Logout</Link>
+            <Link to='/login' onClick={logoutHandler}>
+              Logout
+            </Link>
           </li>
-        ) : (
+        </ul>
+      ) : (
+        <ul>
+          <li>
+            <a href='profiles.html'>Developers</a>
+          </li>
+          <li>
+            <Link to='/register'>Register</Link>
+          </li>
+
           <li>
             <Link to='/login'>Login</Link>
           </li>
-        )}
-      </ul>
+        </ul>
+      )}
     </nav>
   );
 };
