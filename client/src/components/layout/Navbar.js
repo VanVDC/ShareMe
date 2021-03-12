@@ -26,6 +26,7 @@ const Navbar = () => {
         </li>
         {userInfo ? (
           <li>
+            <i className='fas fa-sign-out-alt'></i>
             <Link onClick={logoutHandler}>Logout</Link>
           </li>
         ) : (

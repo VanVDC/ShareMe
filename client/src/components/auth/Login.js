@@ -18,7 +18,7 @@ const Login = ({ location, history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push('/');
+      history.push('/dashboard');
     }
   }, [history, userInfo]);
 
