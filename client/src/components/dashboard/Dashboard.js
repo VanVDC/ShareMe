@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Spinner from '../layout/Spinner';
+import Loader from '../layout/Spinner';
 import { getCurrentProfile } from '../../actions/profileActions';
 
 const Dashboard = () => {
@@ -13,11 +13,12 @@ const Dashboard = () => {
   const { loading: profileLoading, error: profileError, profile } = getProfile;
 
   useEffect(() => {
-    getCurrentProfile();
+    getCurrentProfile(userInfo._id);
   }, []);
+  console.log('profile ', profile);
 
   return profileLoading && profile === null ? (
-    <Spinner />
+    <Loader />
   ) : (
     <Fragment>
       <h1 className='large text-primary'>Dashboard</h1>

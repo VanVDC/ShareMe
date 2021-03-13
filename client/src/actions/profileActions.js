@@ -4,12 +4,22 @@ import { GET_PROFILE, PROFILE_ERROR } from '../constants/profileConstants';
 
 //get current users profile
 
-export const getCurrentProfile = () => async (dispatch) => {
+export const getCurrentProfile = (id) => async (dispatch, getState) => {
+  const {
+    userLogin: { userInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  };
   try {
-    const res = await axios.get('/api/profile/me');
+    const { data } = await axios.get(`/api/profile/me`, config);
+    console.log('data: ', data);
     dispatch({
       type: GET_PROFILE,
-      payload: res,
+      payload: data,
     });
   } catch (err) {
     dispatch({

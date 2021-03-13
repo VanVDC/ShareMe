@@ -1,16 +1,21 @@
-import React, { Fragment } from 'react';
-import Spinn from './spinner.gif';
+import React from 'react';
+import { Spinner } from 'react-bootstrap';
 
-const Spinner = () => {
+const Loader = () => {
   return (
-    <Fragment>
-      <img
-        src={Spinn}
-        style={{ width: '200px', margin: 'auto', display: 'block' }}
-        alt='Loading...'
-      />
-    </Fragment>
+    <Spinner
+      animation='border'
+      role='status'
+      style={{
+        width: '100px',
+        height: '100px',
+        margin: 'auto',
+        display: 'block',
+      }}
+    >
+      <span className='sr-only'>Loading...</span>
+    </Spinner>
   );
 };
 
-export default Spinner;
+export default Loader;
