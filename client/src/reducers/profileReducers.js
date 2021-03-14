@@ -1,32 +1,28 @@
 import {
-  GET_PROFILE,
-  PROFILE_ERROR,
+  GET_PROFILE_SUCCESS,
+  GET_PROFILE_FAIL,
+  GET_PROFILE_REQUEST,
   CLEAR_PROFILE,
 } from '../constants/profileConstants';
 
-const initialState = {
-  profile: null,
-  profiles: [],
-  repos: [],
-  loading: true,
-  error: {},
-};
-
-export const getCurrentProfileReducer = (state = initialState, action) => {
-  const { type, payload } = action;
-
-  switch (type) {
-    case GET_PROFILE:
+export const getCurrentProfileReducer = (
+  state = { profile: null, profiles: [], repos: [] },
+  action
+) => {
+  switch (action.type) {
+    case GET_PROFILE_REQUEST:
       return {
-        ...state,
-        profile: payload,
-        loading: false,
+        loading: true,
       };
-    case PROFILE_ERROR:
+    case GET_PROFILE_SUCCESS:
       return {
-        ...state,
-        error: payload,
         loading: false,
+        profile: action.payload,
+      };
+    case GET_PROFILE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
       };
     case CLEAR_PROFILE:
       return { ...state, profile: null, repos: [], loading: false };
