@@ -6,25 +6,23 @@ import { getCurrentProfile } from '../../actions/profileActions';
 const Dashboard = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
-  const { user } = userInfo;
 
   const getProfile = useSelector((state) => state.profile);
   const { loading: profileLoading, error: profileError, profile } = getProfile;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('profile ', profile);
-
     dispatch(getCurrentProfile());
-    console.log('profile ', profile);
   }, [dispatch]);
 
-  return (
+  return profileLoading ? (
+    <p>loading....</p>
+  ) : (
     <Fragment>
       <h1 className='large text-primary'>Dashboard</h1>
       <p className='lead'>
         {' '}
-        <i className='fas fa-user'>Welcome {user && user.name}</i>
+        <i className='fas fa-user'>Welcome {userInfo.name}</i>
       </p>
       {profile !== null ? (
         <Fragment>has</Fragment>

@@ -55,6 +55,7 @@ const Login = ({ location, history }) => {
 
         <input type='submit' className='btn btn-primary' value='login' />
       </form>
+      <p className='my-1'>name: john@example.com pass: 123456Ab*</p>
       <p className='my-1'>
         Don't have an account? <Link to='/register'>Sign Up</Link>
       </p>

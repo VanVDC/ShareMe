@@ -11,13 +11,14 @@ import { response } from 'express';
 export const getUserProfileById = asyncHandler(async (req, res) => {
   try {
     const profile = await Profile.findOne({
-      user: req.user.id,
+      user: req.user._id,
     }).populate('user', ['name', 'avatar']);
+
+    console.log('profile: ', profile);
 
     if (!profile) {
       res.status(400).json({ meg: 'There is no profile for this user' });
     }
-
     res.json(profile);
   } catch (err) {
     console.error(err.message);

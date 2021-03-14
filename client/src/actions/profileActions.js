@@ -23,7 +23,6 @@ export const getCurrentProfile = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(`/api/profile/me`, config);
-    console.log('data: ', data);
 
     dispatch({
       type: GET_PROFILE_SUCCESS,
