@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Loader from '../layout/Loader';
 import { getCurrentProfile } from '../../actions/profileActions';
 
 const Dashboard = () => {
@@ -10,17 +9,15 @@ const Dashboard = () => {
   const { user } = userInfo;
 
   const getProfile = useSelector((state) => state.profile);
-  const {
-    loading: profileLoading,
-    error: profileError,
-    profile,
-    profiles,
-  } = getProfile;
+  const { loading: profileLoading, error: profileError, profile } = getProfile;
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getCurrentProfile(userInfo._id);
-  }, []);
-  console.log('profile ', profile);
+    console.log('profile ', profile);
+
+    dispatch(getCurrentProfile());
+    console.log('profile ', profile);
+  }, [dispatch]);
 
   return (
     <Fragment>
@@ -30,7 +27,7 @@ const Dashboard = () => {
         <i className='fas fa-user'>Welcome {user && user.name}</i>
       </p>
       {profile !== null ? (
-        <Fragment>has profile</Fragment>
+        <Fragment>has</Fragment>
       ) : (
         <Fragment>
           <p>You jave not yet setup profile, please add some info</p>

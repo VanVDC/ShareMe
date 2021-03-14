@@ -8,7 +8,7 @@ import {
 
 //get current users profile
 
-export const getCurrentProfile = (id) => async (dispatch, getState) => {
+export const getCurrentProfile = () => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_PROFILE_REQUEST });
 
@@ -21,9 +21,10 @@ export const getCurrentProfile = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.get(`/api/profile/me`, config);
 
+    const { data } = await axios.get(`/api/profile/me`, config);
     console.log('data: ', data);
+
     dispatch({
       type: GET_PROFILE_SUCCESS,
       payload: data,
