@@ -6,6 +6,7 @@ import {
   USER_ADD_REQUEST,
   USER_ADD_SUCCESS,
   USER_ADD_FAIL,
+  DELETE_ACCOUNT,
 } from '../constants/userConstants';
 
 export const userLoginReducer = (state = {}, action) => {
@@ -26,6 +27,11 @@ export const userLoginReducer = (state = {}, action) => {
       };
     case USER_LOGOUT:
       return {};
+    case DELETE_ACCOUNT:
+      return {
+        ...state,
+        loading: false,
+      };
     default:
       return state;
   }

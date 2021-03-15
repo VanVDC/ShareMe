@@ -7,9 +7,13 @@ import {
   USER_ADD_REQUEST,
   USER_ADD_SUCCESS,
   USER_LOGOUT,
+  DELETE_ACCOUNT,
 } from '../constants/userConstants';
 
-import { CLEAR_PROFILE } from '../constants/profileConstants';
+import {
+  CLEAR_PROFILE,
+  UPDATE_PROFILE_ERROR,
+} from '../constants/profileConstants';
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -72,4 +76,36 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: CLEAR_PROFILE });
   document.location.href = '/login';
+};
+
+//delete account and profile
+export const deleteAccount = (id) => async (dispatch, getState) => {
+  if (window.confirm('Are you sure?'))
+    try {
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.delete(`/api/profile/`, config);
+      localStorage.removeItem('userInfo');
+
+      dispatch({
+        type: CLEAR_PROFILE,
+      });
+      dispatch({
+        type: DELETE_ACCOUNT,
+      });
+      document.location.href = '/login';
+    } catch (err) {
+      dispatch({
+        type: UPDATE_PROFILE_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
+    }
 };

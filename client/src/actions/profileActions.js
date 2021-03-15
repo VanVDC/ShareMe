@@ -6,6 +6,7 @@ import {
   GET_PROFILE_REQUEST,
   GET_PROFILE_SUCCESS,
   UPDATE_PROFILE,
+  UPDATE_PROFILE_ERROR,
 } from '../constants/profileConstants';
 
 //get current users profile
@@ -106,7 +107,7 @@ export const addExperience = (formData, history) => async (
     // }
   } catch (err) {
     dispatch({
-      type: GET_PROFILE_FAIL,
+      type: UPDATE_PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
@@ -140,7 +141,69 @@ export const addEducation = (formData, history) => async (
     // }
   } catch (err) {
     dispatch({
-      type: GET_PROFILE_FAIL,
+      type: UPDATE_PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//delete experience fix the error
+
+export const deleteExperience = (id) => async (dispatch, getState) => {
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    dispatch({
+      type: CREATE_PROFILE_REQUEST,
+    });
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.delete(
+      `/api/profile/experience/${id}`,
+      config
+    );
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: data,
+    });
+  } catch (err) {
+    dispatch({
+      type: UPDATE_PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const deleteEducation = (id) => async (dispatch, getState) => {
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    dispatch({
+      type: CREATE_PROFILE_REQUEST,
+    });
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.delete(`/api/profile/education/${id}`, config);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: data,
+    });
+  } catch (err) {
+    dispatch({
+      type: UPDATE_PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }

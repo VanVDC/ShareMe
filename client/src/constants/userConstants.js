@@ -6,3 +6,4 @@ export const USER_LOGOUT = 'USER_LOGOUT ';
 export const USER_ADD_REQUEST = 'USER_ADD_REQUEST';
 export const USER_ADD_SUCCESS = 'USER_ADD_SUCCESS';
 export const USER_ADD_FAIL = 'USER_ADD_FAIL';
+export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
