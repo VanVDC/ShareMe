@@ -1,8 +1,9 @@
-import React, { Fragment } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { Fragment, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { addEducation } from '../../actions/profileActions';
 
-const AddEducation = () => {
+const AddEducation = ({ history }) => {
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ const AddEducation = () => {
     current: false,
     description: '',
   });
+
   const {
     school,
     degree,
@@ -26,6 +28,7 @@ const AddEducation = () => {
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
   return (
     <Fragment>
       <h1 className='large text-primary'>Add Your Education</h1>

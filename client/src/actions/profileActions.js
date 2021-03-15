@@ -74,7 +74,10 @@ export const createProfile = (formData, history, edit = false) => async (
 };
 
 // Add Experience
-export const addExperience = (formData, history) => async (dispatch) => {
+export const addExperience = (formData, history) => async (
+  dispatch,
+  getState
+) => {
   try {
     const {
       userLogin: { userInfo },
@@ -98,9 +101,9 @@ export const addExperience = (formData, history) => async (dispatch) => {
       type: UPDATE_PROFILE,
       payload: data,
     });
-    if (!edit) {
-      history.push('/dashboard');
-    }
+    // if (!edit) {
+    //   history.push('/dashboard');
+    // }
   } catch (err) {
     dispatch({
       type: GET_PROFILE_FAIL,
@@ -109,7 +112,10 @@ export const addExperience = (formData, history) => async (dispatch) => {
   }
 };
 // Add Education
-export const addEducation = (formData, history) => async (dispatch) => {
+export const addEducation = (formData, history) => async (
+  dispatch,
+  getState
+) => {
   try {
     const {
       userLogin: { userInfo },
@@ -129,9 +135,9 @@ export const addEducation = (formData, history) => async (dispatch) => {
       type: UPDATE_PROFILE,
       payload: data,
     });
-    if (!edit) {
-      history.push('/dashboard');
-    }
+    // if (!edit) {
+    //   history.push('/dashboard');
+    // }
   } catch (err) {
     dispatch({
       type: GET_PROFILE_FAIL,

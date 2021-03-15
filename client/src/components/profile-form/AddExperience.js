@@ -1,8 +1,9 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { Fragment, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { addExperience } from '../../actions/profileActions';
 
-const AddExperience = () => {
+const AddExperience = ({ history }) => {
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
@@ -15,7 +16,6 @@ const AddExperience = () => {
     description: '',
   });
 
-  const [toDateDisable, toggleDisabled] = useState(false);
   const { company, title, location, from, to, current, description } = formData;
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
