@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profileActions';
+import DashboardAction from './DashboardAction';
 
 const Dashboard = () => {
   const userLogin = useSelector((state) => state.userLogin);
@@ -27,7 +28,9 @@ const Dashboard = () => {
         <i className='fas fa-user'>Welcome {userInfo.name}</i>
       </p>
       {profile !== null ? (
-        <Fragment>has</Fragment>
+        <Fragment>
+          <DashboardAction />
+        </Fragment>
       ) : (
         <Fragment>
           <p>You jave not yet setup profile, please add some info</p>
