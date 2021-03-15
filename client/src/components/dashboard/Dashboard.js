@@ -15,6 +15,8 @@ const Dashboard = () => {
     dispatch(getCurrentProfile());
   }, [dispatch]);
 
+  console.log('p ', profile);
+
   return profileLoading ? (
     <p>loading....</p>
   ) : (

@@ -14,12 +14,11 @@ export const getUserProfileById = asyncHandler(async (req, res) => {
       user: req.user._id,
     }).populate('user', ['name', 'avatar']);
 
-    console.log('profile: ', profile);
-
     if (!profile) {
       res.status(400).json({ meg: 'There is no profile for this user' });
+    } else {
+      res.json(profile);
     }
-    res.json(profile);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

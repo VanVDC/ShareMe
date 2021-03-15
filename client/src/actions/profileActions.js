@@ -39,15 +39,21 @@ export const getCurrentProfile = () => async (dispatch, getState) => {
 
 //create or update profile
 export const createProfile = (formData, history, edit = false) => async (
-  dispatch
+  dispatch,
+  getState
 ) => {
   try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
     dispatch({
       type: CREATE_PROFILE_REQUEST,
     });
     const config = {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
       },
     };
     const { data } = await axios.post('api/profile', formData, config);
