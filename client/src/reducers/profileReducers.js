@@ -4,6 +4,7 @@ import {
   GET_PROFILE_REQUEST,
   CLEAR_PROFILE,
   CREATE_PROFILE_REQUEST,
+  UPDATE_PROFILE,
 } from '../constants/profileConstants';
 
 export const getCurrentProfileReducer = (
@@ -15,6 +16,7 @@ export const getCurrentProfileReducer = (
       return {
         loading: true,
       };
+    case UPDATE_PROFILE:
     case GET_PROFILE_SUCCESS:
       return {
         loading: false,
@@ -33,6 +35,7 @@ export const getCurrentProfileReducer = (
       return {
         loading: true,
       };
+
     default:
       return state;
   }
