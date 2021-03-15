@@ -3,6 +3,7 @@ import {
   GET_PROFILE_FAIL,
   GET_PROFILE_REQUEST,
   CLEAR_PROFILE,
+  CREATE_PROFILE_REQUEST,
 } from '../constants/profileConstants';
 
 export const getCurrentProfileReducer = (
@@ -19,6 +20,7 @@ export const getCurrentProfileReducer = (
         loading: false,
         profile: action.payload,
       };
+
     case GET_PROFILE_FAIL:
       return {
         loading: false,
@@ -26,6 +28,11 @@ export const getCurrentProfileReducer = (
       };
     case CLEAR_PROFILE:
       return { ...state, profile: null, repos: [], loading: false };
+
+    case CREATE_PROFILE_REQUEST:
+      return {
+        loading: true,
+      };
     default:
       return state;
   }

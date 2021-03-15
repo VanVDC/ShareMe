@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { createProfile } from '../../actions/profileActions';
 
-const CreateProfile = () => {
+const CreateProfile = ({ history }) => {
   const [formData, setFormData] = useState({
     company: '',
     website: '',
@@ -33,8 +35,16 @@ const CreateProfile = () => {
     instagram,
   } = formData;
 
+  const dispatch = useDispatch();
+  const getProfile = useSelector((state) => state.profile);
+  const { loading: profileLoading, error: profileError, profile } = getProfile;
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createProfile(formData, history));
+  };
   return (
     <Fragment>
       <h1 className='large text-primary'>Edit Your Profile</h1>

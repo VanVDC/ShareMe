@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import {
+  CREATE_PROFILE_REQUEST,
   GET_PROFILE_FAIL,
   GET_PROFILE_REQUEST,
   GET_PROFILE_SUCCESS,
@@ -28,6 +29,35 @@ export const getCurrentProfile = () => async (dispatch, getState) => {
       type: GET_PROFILE_SUCCESS,
       payload: data,
     });
+  } catch (err) {
+    dispatch({
+      type: GET_PROFILE_FAIL,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//create or update profile
+export const createProfile = (formData, history, edit = false) => async (
+  dispatch
+) => {
+  try {
+    dispatch({
+      type: CREATE_PROFILE_REQUEST,
+    });
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const { data } = await axios.post('api/profile', formData, config);
+    dispatch({
+      type: GET_PROFILE_SUCCESS,
+      payload: data,
+    });
+    if (!edit) {
+      history.push('/dashboard');
+    }
   } catch (err) {
     dispatch({
       type: GET_PROFILE_FAIL,
