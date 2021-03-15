@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profileActions';
 import DashboardAction from './DashboardAction';
+import Experience from './Experience';
+import Education from './Education';
 
 const Dashboard = () => {
   const userLogin = useSelector((state) => state.userLogin);
@@ -30,6 +32,8 @@ const Dashboard = () => {
       {profile !== null ? (
         <Fragment>
           <DashboardAction />
+          <Experience experience={profile.experience} />
+          <Education education={profile.education} />
         </Fragment>
       ) : (
         <Fragment>
