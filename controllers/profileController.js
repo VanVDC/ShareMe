@@ -3,6 +3,7 @@ import Profile from '../models/Profile.js';
 import validator from 'validator';
 import request from 'request';
 import User from '../models/User.js';
+import Post from '../models/Post.js';
 import { response } from 'express';
 
 //@route GET api/profile/me
@@ -139,6 +140,8 @@ export const getUserById = asyncHandler(async (req, res) => {
 
 export const deleteProfile = asyncHandler(async (req, res) => {
   try {
+    //remove post
+    await Post.deleteMany({ user: req.user.id });
     //remove profile
     await Profile.findOneAndRemove({
       user: req.user.id,
