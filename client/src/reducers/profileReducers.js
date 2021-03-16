@@ -6,6 +6,9 @@ import {
   CREATE_PROFILE_REQUEST,
   UPDATE_PROFILE,
   UPDATE_PROFILE_ERROR,
+  GET_PROFILES_REQUEST,
+  GET_PROFILES_FAIL,
+  GET_PROFILES_SUCCESS,
 } from '../constants/profileConstants';
 
 export const getCurrentProfileReducer = (
@@ -13,9 +16,16 @@ export const getCurrentProfileReducer = (
   action
 ) => {
   switch (action.type) {
+    case GET_PROFILES_REQUEST:
     case GET_PROFILE_REQUEST:
       return {
         loading: true,
+      };
+    case GET_PROFILES_SUCCESS:
+      return {
+        ...state,
+        profiles: payload,
+        loading: false,
       };
     case UPDATE_PROFILE:
     case GET_PROFILE_SUCCESS:
@@ -23,6 +33,7 @@ export const getCurrentProfileReducer = (
         loading: false,
         profile: action.payload,
       };
+    case GET_PROFILES_FAIL:
     case UPDATE_PROFILE_ERROR:
     case GET_PROFILE_FAIL:
       return {
@@ -35,6 +46,13 @@ export const getCurrentProfileReducer = (
     case CREATE_PROFILE_REQUEST:
       return {
         loading: true,
+      };
+
+    case GET_REPOS:
+      return {
+        ...state,
+        repos: payload,
+        loading: false,
       };
 
     default:
