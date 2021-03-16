@@ -5,6 +5,7 @@ import {
   CLEAR_PROFILE,
   CREATE_PROFILE_REQUEST,
   UPDATE_PROFILE,
+  UPDATE_PROFILE_ERROR,
 } from '../constants/profileConstants';
 
 export const getCurrentProfileReducer = (
@@ -22,7 +23,7 @@ export const getCurrentProfileReducer = (
         loading: false,
         profile: action.payload,
       };
-
+    case UPDATE_PROFILE_ERROR:
     case GET_PROFILE_FAIL:
       return {
         loading: false,
