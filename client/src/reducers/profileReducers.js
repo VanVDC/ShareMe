@@ -9,6 +9,7 @@ import {
   GET_PROFILES_REQUEST,
   GET_PROFILES_FAIL,
   GET_PROFILES_SUCCESS,
+  GET_REPOS,
 } from '../constants/profileConstants';
 
 export const getCurrentProfileReducer = (
@@ -24,7 +25,7 @@ export const getCurrentProfileReducer = (
     case GET_PROFILES_SUCCESS:
       return {
         ...state,
-        profiles: payload,
+        profiles: action.payload,
         loading: false,
       };
     case UPDATE_PROFILE:
@@ -51,7 +52,7 @@ export const getCurrentProfileReducer = (
     case GET_REPOS:
       return {
         ...state,
-        repos: payload,
+        repos: action.payload,
         loading: false,
       };
 

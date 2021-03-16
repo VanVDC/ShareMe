@@ -91,7 +91,7 @@ export const getProfileById = (userId) => async (dispatch, getState) => {
     const { data } = await axios.get(`/api/profile/user/${userId}`, config);
 
     dispatch({
-      type: GET_PROFILE,
+      type: GET_PROFILE_SUCCESS,
       payload: data,
     });
   } catch (err) {

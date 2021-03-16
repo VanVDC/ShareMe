@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getCurrentProfile());
-  }, [dispatch]);
+  }, []);
 
   console.log('p ', profile);
 
