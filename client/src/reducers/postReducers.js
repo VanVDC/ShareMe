@@ -3,6 +3,7 @@ import {
   POST_ERROR,
   UPDATE_LIKE,
   DELETE_POST,
+  ADD_POST,
 } from '../constants/postConstants';
 
 const initialState = {
@@ -18,6 +19,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         posts: action.ayload,
+        loading: false,
+      };
+    case ADD_POST:
+      return {
+        ...state,
+        posts: [...state.posts, payload],
         loading: false,
       };
     case DELETE_POST:
