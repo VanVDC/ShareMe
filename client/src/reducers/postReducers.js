@@ -24,13 +24,13 @@ export default function (state = initialState, action) {
     case ADD_POST:
       return {
         ...state,
-        posts: [...state.posts, payload],
+        posts: [action.payload, ...state.posts],
         loading: false,
       };
     case DELETE_POST:
       return {
         ...state,
-        posts: state.posts.filter((post) => post._id !== payload),
+        posts: state.posts.filter((post) => post._id !== action.payload),
         loading: false,
       };
     case POST_ERROR:
@@ -44,7 +44,7 @@ export default function (state = initialState, action) {
         ...state,
         posts: state.posts.map((post) =>
           post._id === action.payload.id
-            ? { ...post, likes: payload.likes }
+            ? { ...post, likes: action.payload.likes }
             : post
         ),
         loading: false,
