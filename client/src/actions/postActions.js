@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_POSTS, POST_ERROR, UPDATE_LIKE } from '../constants/postConstantss';
+import { GET_POSTS, POST_ERROR, UPDATE_LIKE, DELETE_POST } from '../constants/postConstantss';
 
 //get posts
 export const getPosts = ()=> (dispatch, getState )=>{
@@ -38,7 +38,7 @@ export const addLike = (postId)=> (dispatch, getState )=>{
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const {data} = await axios.put(`/api/postd/like/${postId}`, config)
+    const {data} = await axios.put(`/api/posts/like/${postId}`, config)
 
     dispatch({
       type: UPDATE_LIKE,
@@ -63,11 +63,36 @@ export const removeLike = (id)=> (dispatch, getState )=>{
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const {data} = await axios.put(`/api/postd/unlike/${id}`, config)
+    const {data} = await axios.put(`/api/posts/unlike/${id}`, config)
 
     dispatch({
       type: UPDATE_LIKE,
       payload: {id, likes: data}
+    })
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+}
+//delete post
+export const deletePost = (id)=> (dispatch, getState )=>{
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    await axios.put(`/api/posts/${id}`, config)
+
+    dispatch({
+      type: DELETE_POST,
+      payload: id
     })
   } catch (err) {
     dispatch({
