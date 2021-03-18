@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { useDispatch, useSelector } from 'react-redux';
+import { addLike, removeLike } from '../../actions/postActions';
 
 const PostItem = ({
   post: { _id, text, name, avatar, user, likes, comments, date },
@@ -9,6 +10,9 @@ const PostItem = ({
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  // const post = useSelector((state) => state.post);
+  // const {}=post
 
   return (
     <div className='post bg-white p-1 my-1'>
@@ -27,7 +31,7 @@ const PostItem = ({
         {showActions && (
           <Fragment>
             <button
-              // onClick={() => addLike(_id)}
+              onClick={() => dispatch(addLike(_id))}
               type='button'
               className='btn btn-light'
             >
@@ -35,7 +39,7 @@ const PostItem = ({
               <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
             </button>
             <button
-              // onClick={() => removeLike(_id)}
+              onClick={() => dispatch(removeLike(_id))}
               type='button'
               className='btn btn-light'
             >
