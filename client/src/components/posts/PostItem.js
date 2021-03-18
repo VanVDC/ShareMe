@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
+// import PropType from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,6 +7,7 @@ import { addLike, removeLike, deletePost } from '../../actions/postActions';
 
 const PostItem = ({
   post: { _id, text, name, avatar, user, likes, comments, date },
+  showActions,
 }) => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
@@ -66,5 +68,7 @@ const PostItem = ({
     </div>
   );
 };
-
+PostItem.defaultProps = {
+  showActions: true,
+};
 export default PostItem;

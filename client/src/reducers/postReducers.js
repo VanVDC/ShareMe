@@ -5,6 +5,8 @@ import {
   DELETE_POST,
   ADD_POST,
   GET_POST,
+  ADD_COMMENT,
+  REMOVE_COMMENT,
 } from '../constants/postConstants';
 
 const initialState = {
@@ -19,7 +21,7 @@ export default function (state = initialState, action) {
     case GET_POSTS:
       return {
         ...state,
-        posts: action.ayload,
+        posts: action.payload,
         loading: false,
       };
     case GET_POST:
@@ -55,6 +57,23 @@ export default function (state = initialState, action) {
             : post
         ),
         loading: false,
+      };
+    case ADD_COMMENT:
+      return {
+        ...state,
+        post: { ...state.post, comments: action.payload },
+        loading: false,
+      };
+    case REMOVE_COMMENT:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: state.post.comments.filter(
+            (comment) => comment._id !== action.payload
+          ),
+          loading: false,
+        },
       };
     default:
       return state;

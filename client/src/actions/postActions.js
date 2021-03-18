@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_POSTS, POST_ERROR, UPDATE_LIKE, DELETE_POST, ADD_POST, GET_POST } from '../constants/postConstantss';
+import { GET_POSTS, POST_ERROR, UPDATE_LIKE, DELETE_POST, ADD_POST, GET_POST, ADD_COMMENT, REMOVE_COMMENT } from '../constants/postConstantss';
 
 //get posts
 export const getPosts = ()=> (dispatch, getState )=>{
@@ -145,6 +145,59 @@ export const getPost = (id)=> (dispatch, getState )=>{
     dispatch({
       type: GET_POST,
       payload: data
+    })
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+}
+
+//add COMMENT
+export const addComment = (postId, formData)=> (dispatch, getState )=>{
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const {data}=await axios.post(`/api/posts/comment/${postId}`,formData, config)
+
+    dispatch({
+      type: ADD_COMMENT,
+      payload: data
+    })
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+}
+//remove COMMENT
+export const deleteComment = (postId, commentId)=> (dispatch, getState )=>{
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    await axios.delete(`/api/posts/comment/${postId}/${commentId}`, config)
+
+    dispatch({
+      type: REMOVE_COMMENT,
+      payload: commentId
     })
   } catch (err) {
     dispatch({
