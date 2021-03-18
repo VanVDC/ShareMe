@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_POSTS, POST_ERROR, UPDATE_LIKE, DELETE_POST, ADD_POST } from '../constants/postConstantss';
+import { GET_POSTS, POST_ERROR, UPDATE_LIKE, DELETE_POST, ADD_POST, GET_POST } from '../constants/postConstantss';
 
 //get posts
 export const getPosts = ()=> (dispatch, getState )=>{
@@ -118,6 +118,32 @@ export const addPost = (formData)=> (dispatch, getState )=>{
 
     dispatch({
       type: ADD_POST,
+      payload: data
+    })
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+}
+//get post
+export const getPost = (id)=> (dispatch, getState )=>{
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const {data}=await axios.post(`/api/posts/${id}`,formData, config)
+
+    dispatch({
+      type: GET_POST,
       payload: data
     })
   } catch (err) {

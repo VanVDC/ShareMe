@@ -4,6 +4,7 @@ import {
   UPDATE_LIKE,
   DELETE_POST,
   ADD_POST,
+  GET_POST,
 } from '../constants/postConstants';
 
 const initialState = {
@@ -19,6 +20,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         posts: action.ayload,
+        loading: false,
+      };
+    case GET_POST:
+      return {
+        ...state,
+        post: action.payload,
         loading: false,
       };
     case ADD_POST:
